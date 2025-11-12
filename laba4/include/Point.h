@@ -4,7 +4,6 @@
 #include <iostream>
 #include <type_traits>
 
-// Замена concept на традиционный SFINAE
 template <typename T, typename = void>
 struct is_scalar : std::false_type
 {
@@ -24,7 +23,6 @@ class Point
 private:
     T x_, y_;
 
-    // Проверка типа при компиляции
     static_assert(is_scalar_v<T>, "T must be a scalar type");
 
 public:
