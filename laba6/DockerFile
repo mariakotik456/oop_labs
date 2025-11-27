@@ -1,0 +1,18 @@
+FROM alpine:3.18
+
+RUN apk update && apk add \
+    build-base \
+    cmake \
+    make \
+    gtest \
+    gtest-dev
+
+WORKDIR /app
+COPY . .
+
+RUN mkdir -p build && cd build && cmake .. && make
+
+RUN ln -sf /app/build/dungeon_editor /usr/local/bin/dungeon_editor && \
+    ln -sf /app/build/tests /usr/local/bin/tests
+
+CMD ["tests"]

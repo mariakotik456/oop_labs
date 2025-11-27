@@ -1,0 +1,32 @@
+#pragma once
+#include <string>
+#include <memory>
+
+class BattleObserver
+{
+public:
+    virtual ~BattleObserver() = default;
+    virtual void onBattleResult(const std::string &killer,
+                                const std::string &victim,
+                                const std::string &result) = 0;
+};
+
+class ConsoleObserver : public BattleObserver
+{
+public:
+    void onBattleResult(const std::string &killer,
+                        const std::string &victim,
+                        const std::string &result) override;
+};
+
+class FileObserver : public BattleObserver
+{
+private:
+    std::string filename;
+
+public:
+    FileObserver(const std::string &filename = "log.txt");
+    void onBattleResult(const std::string &killer,
+                        const std::string &victim,
+                        const std::string &result) override;
+};
